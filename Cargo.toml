@@ -1,0 +1,20 @@
+[package]
+name = "r4p1d-r3s3t"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+env_logger = "0.10.0"
+h2 = "0.3.21"
+http = "0.2.9"
+log = "0.4.20"
+native-tls = "0.2.11"
+rustls = { version="0.21.7", features = ["dangerous_configuration"] }
+tokio = { version="1.33.0", features = ["full"] }
+tokio-native-tls = "0.3.1"
+tokio-rustls = "0.24.1"
+url = "2.4.1"
+
