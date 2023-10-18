@@ -10,6 +10,7 @@ anyhow = "1.0.75"
 env_logger = "0.10.0"
 h2 = "0.3.21"
 http = "0.2.9"
+hyper = "0.14.27"
 log = "0.4.20"
 native-tls = "0.2.11"
 rustls = { version="0.21.7", features = ["dangerous_configuration"] }
