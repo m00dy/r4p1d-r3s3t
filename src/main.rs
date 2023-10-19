@@ -1,23 +1,37 @@
 use h2::client;
 use h2::Reason;
 use http::version::Version;
-use http::Response;
 use http::{Method, Request};
-use hyper::body::Bytes;
 
 use anyhow::anyhow;
-use log::{debug, error};
+use log::error;
 use std::net::ToSocketAddrs;
 use std::sync::Arc;
-use tokio::net::TcpListener;
 use tokio::net::TcpStream;
 use tokio_rustls::TlsConnector;
-use tokio_rustls::{rustls, TlsAcceptor};
+use tokio_rustls::rustls;
 use tokio::time::{sleep, Duration};
-
 
 // import Url
 use url::Url;
+
+use clap::Parser;
+
+/// Simple program to greet a person
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+    /// Name of the person to greet
+    /// check that url must start with http or https
+    #[arg(required=true, short, long)]
+    url: String,
+
+    /// Number of times to greet
+    #[arg(required=true, short, long)]
+    requests: u64,
+}
+
+
 
 struct InsecureServerCertVerifier;
 
@@ -37,7 +51,8 @@ impl rustls::client::ServerCertVerifier for InsecureServerCertVerifier {
 
 #[tokio::main]
 pub async fn main() -> Result<(), anyhow::Error> {
-    let request_path = "http://138.201.205.85";
+    let args = Args::parse();
+    let request_path = args.url;
     let url = Url::parse(&request_path)?;
     let cloned_url = url.clone();
     let host = cloned_url.host().expect("Parse host error!");
@@ -102,8 +117,7 @@ pub async fn main() -> Result<(), anyhow::Error> {
 
     let mut send_request = send_request_poll.ready().await?;
 
-    loop {
-
+    for _ in 0..args.requests {
         let request = Request::builder()
         .method(Method::GET)
         .version(Version::HTTP_2)
@@ -121,8 +135,9 @@ pub async fn main() -> Result<(), anyhow::Error> {
         });
     
         let _ = response.await;
-        
     }
+
+    Ok(())
 }
 
 
