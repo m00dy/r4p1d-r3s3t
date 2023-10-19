@@ -35,7 +35,7 @@ cargo build
 Send 10 HTTP/2 requests (HEADERS and RST_STREAM frames) over a single connection to https://example.com.
 
 ```
-./r4p1d-r3s3t  -requests=10  -url  https://example.com
+./r4p1d-r3s3t --requests=10 --url https://example.com
 ```
 
 
