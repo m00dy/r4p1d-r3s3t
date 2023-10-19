@@ -27,7 +27,7 @@ struct Args {
     url: String,
 
     /// Number of times to greet
-    #[arg(required=true, short, long)]
+    #[arg(short, long, default_value = "5")]
     requests: u64,
 }
 
