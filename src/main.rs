@@ -75,8 +75,7 @@ pub async fn main() -> Result<(), anyhow::Error> {
 
         //create rustls client config with dangerous configuration
         // disable certificate verification
-        let mut dangerous_config: rustls::client::DangerousClientConfig =
-            rustls::ClientConfig::dangerous(&mut config);
+        let mut dangerous_config: rustls::client::DangerousClientConfig = config.dangerous();
 
         dangerous_config.set_certificate_verifier(Arc::new(InsecureServerCertVerifier {}));
 
