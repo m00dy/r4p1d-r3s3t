@@ -19,7 +19,7 @@ git clone https://github.com/m00dy/r4p1d-r3s3t
 ### Installing
 
 ```
-cd rapidresetclient
+cd r4p1d-r3s3t
 
 cargo build
 ```
